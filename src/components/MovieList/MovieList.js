@@ -6,12 +6,12 @@ import './MovieList.scss';
 
 const MovieList = () => {
     const data = useSelector(getAllMovies)
-    // console.log(data.Search)
+    console.log(data.Search)
     return (
         <div className='movie'>
             {
                 data.Response === "True" ? data.Search.map(item => (
-                    <MovieCard key={item.Title} data={item} />
+                    <MovieCard key={item.Title + item.Year} data={item} />
                 )) :
                     <div className="error">
                         <h2>{data.Error}</h2>
