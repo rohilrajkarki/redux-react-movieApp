@@ -1,0 +1,32 @@
+.card-item {
+    margin: 1rem;
+    background: #1a242f;
+    color: white;
+    cursor: pointer;
+    transition: all 0.5s;
+
+    &:hover {
+        transform: scale(1.1);
+        transition: all 0.5s;
+    }
+}
+
+.card-info {
+    width: 200px;
+
+    h1 {
+        font-size: 22px;
+        font-weight: 400;
+    }
+}
+
+.card-top {
+    img {
+        width: 18rem;
+        height: 25rem;
+    }
+}
+
+.card-bottom {
+    padding: 1rem;
+}
