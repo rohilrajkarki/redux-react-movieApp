@@ -10,7 +10,7 @@ const initialState = {
 export const fetchMoviesAsync = createAsyncThunk(
     'movie/fetchMoviesAsync',
     async (page) => {
-        const movieText = "mystery";
+        const movieText = "murder";
         return await axios.get(`?apikey=${APIKEY}&s=${movieText}&type=movie&page=${page}`)
             .then(res => res.data)
     })
@@ -26,8 +26,11 @@ const movieSlice = createSlice({
     name: "movie",
     initialState,
     reducers: {
-        addMovies: (state, { payload }) => {
-            state.movies.push(payload);
+        // addMovies: (state, { payload }) => {
+        //     state.movies.push(payload);
+        // },
+        removeSelectedMovies: (state) => {
+            state.selectedMovie = {};
         }
     },
     extraReducers:
@@ -49,10 +52,9 @@ const movieSlice = createSlice({
 
             })
         }
-
 })
 
-export const { addMovies } = movieSlice.actions;
+export const { removeSelectedMovies } = movieSlice.actions;
 //store bata value leko
 export const getAllMovies = (state) => state.movies.movies//state.reducername.property
 export const getMoviesDetail = (state) => state.movies.selectedMovie
