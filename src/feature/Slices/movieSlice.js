@@ -66,10 +66,16 @@ const movieSlice = createSlice({
             builder.addCase(fetchMoviesAsync.rejected, () => {
                 console.log("rejected")
             })
-            builder.addCase(fetchMoviesDetailsAsync.fulfilled, (state, { payload }) => {
-                state.selectedMovie = payload
+            builder.addCase(fetchMoviesDetailsAsync.pending, (state) => {
+                state.loading = true
 
             })
+            builder.addCase(fetchMoviesDetailsAsync.fulfilled, (state, { payload }) => {
+                state.selectedMovie = payload
+                state.loading = false
+
+            })
+
         }
 })
 
@@ -78,4 +84,5 @@ export const { removeSelectedMovies, pageNumber, movieTextEnter } = movieSlice.a
 export const getAllMovies = (state) => state.movies.movies//state.reducername.property
 export const getMoviesDetail = (state) => state.movies.selectedMovie
 export const getPageDetail = (state) => state.movies.page
+export const getLoading = (state) => state.movies.loading
 export default movieSlice.reducer
