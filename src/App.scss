@@ -11,6 +11,11 @@ a {
 
 body {
     background: #293241;
+
+}
+
+::-webkit-scrollbar {
+    display: none;
 }
 
 .loading {
