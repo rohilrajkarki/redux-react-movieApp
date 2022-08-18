@@ -6,20 +6,17 @@ const initialState = {
     movies: {},
     selectedMovie: {},
     page: 1,
-    searchText: "murder"
+    searchText: "murder",
+    loading: false
 }
 
 export const fetchMoviesAsync = createAsyncThunk(
     'movie/fetchMoviesAsync',
     async (_, { getState }) => {
-        // const searchText = "murder";
-
         const { page, searchText } = getState().movies
-        console.log("getting page", page)
-        console.log("searchMovie", searchText)
-        // console.log(aa)
+        // console.log("getting page", page)
+        // console.log("searchMovie", searchText)
         return await axios.get(`?apikey=${APIKEY}&s=${searchText}&type=movie&page=${page}`)
-            // &page=${page}
             .then(res => res.data)
     })
 
@@ -55,12 +52,14 @@ const movieSlice = createSlice({
     },
     extraReducers:
         (builder) => {
-            builder.addCase(fetchMoviesAsync.pending, () => {
-                // console.log("pending")
+            builder.addCase(fetchMoviesAsync.pending, (state) => {
+                state.loading = true
+                // console.log("pending", state.loading)
             })
             builder.addCase(fetchMoviesAsync.fulfilled, (state, { payload }) => {
                 // console.log("Movies Fetched")
                 state.movies = payload
+                state.loading = false
                 // console.log(state.movies)
 
             })
