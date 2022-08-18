@@ -6,7 +6,7 @@ import './MovieList.scss';
 
 const MovieList = () => {
     const data = useSelector(getAllMovies)
-    console.log(data.Search)
+    // console.log(data.Search)
     return (
         <div className='movie'>
             {

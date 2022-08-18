@@ -4,16 +4,25 @@ import axios from 'axios'
 
 const initialState = {
     movies: {},
-    selectedMovie: {}
+    selectedMovie: {},
+    page: 1,
+    searchText: "murder"
 }
 
 export const fetchMoviesAsync = createAsyncThunk(
     'movie/fetchMoviesAsync',
-    async (page) => {
-        const movieText = "murder";
-        return await axios.get(`?apikey=${APIKEY}&s=${movieText}&type=movie&page=${page}`)
+    async (_, { getState }) => {
+        // const searchText = "murder";
+
+        const { page, searchText } = getState().movies
+        console.log("getting page", page)
+        console.log("searchMovie", searchText)
+        // console.log(aa)
+        return await axios.get(`?apikey=${APIKEY}&s=${searchText}&type=movie&page=${page}`)
+            // &page=${page}
             .then(res => res.data)
     })
+
 
 export const fetchMoviesDetailsAsync = createAsyncThunk(
     'movie/fetchMoviesDetailsAsync',
@@ -31,12 +40,23 @@ const movieSlice = createSlice({
         // },
         removeSelectedMovies: (state) => {
             state.selectedMovie = {};
+        },
+        pageNumber: (state, { payload }) => {
+            if (payload === "nex") {
+                state.page++;
+            } else if (payload === "pre") {
+                state.page--;
+            }
+            console.log("store page", state.page)
+        },
+        movieTextEnter: (state, { payload }) => {
+            state.searchText = payload
         }
     },
     extraReducers:
         (builder) => {
             builder.addCase(fetchMoviesAsync.pending, () => {
-                console.log("pending")
+                // console.log("pending")
             })
             builder.addCase(fetchMoviesAsync.fulfilled, (state, { payload }) => {
                 // console.log("Movies Fetched")
@@ -54,8 +74,9 @@ const movieSlice = createSlice({
         }
 })
 
-export const { removeSelectedMovies } = movieSlice.actions;
+export const { removeSelectedMovies, pageNumber, movieTextEnter } = movieSlice.actions;
 //store bata value leko
 export const getAllMovies = (state) => state.movies.movies//state.reducername.property
 export const getMoviesDetail = (state) => state.movies.selectedMovie
+export const getPageDetail = (state) => state.movies.page
 export default movieSlice.reducer
