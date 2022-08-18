@@ -1,14 +1,16 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import { fetchMoviesDetailsAsync, getMoviesDetail, removeSelectedMovies } from '../../feature/Slices/movieSlice';
+import { fetchMoviesDetailsAsync, getLoading, getMoviesDetail, removeSelectedMovies } from '../../feature/Slices/movieSlice';
 import './MovieDetail.scss';
 
 const MovieDetail = () => {
     const { imdbID } = useParams()
     const dispatch = useDispatch();
     const data = useSelector(getMoviesDetail)
-    // console.log(data)
+    const loading = useSelector(getLoading)
+
+    // console.log("data", Object.keys(data))
     useEffect(() => {
         dispatch(fetchMoviesDetailsAsync(imdbID));
         return () => {
@@ -16,7 +18,7 @@ const MovieDetail = () => {
         }
     }, [dispatch, imdbID]);
     return (
-        <div className='details-main'>
+        !loading ? <div className='details-main'>
             <div>
                 <img src={data.Poster} alt={data.Title} />
             </div>
@@ -43,7 +45,7 @@ const MovieDetail = () => {
                     <span>{data.Awards}</span>
                 </div>
             </div>
-        </div>
+        </div> : <h1 className='loading'>.....loading</h1>
     )
 }
 

@@ -12,3 +12,11 @@ a {
 body {
     background: #293241;
 }
+
+.loading {
+    // text-align: center;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
