@@ -5,14 +5,15 @@
     display: flex;
     justify-content: space-around;
     align-items: center;
+    color: white;
 }
 
 .logo {
     font-size: 20px;
     color: white;
+    flex: 1;
 }
 
-.user-image img {
-    width: 40px;
-    height: 38px;
+.search-movie {
+    flex: 1;
 }

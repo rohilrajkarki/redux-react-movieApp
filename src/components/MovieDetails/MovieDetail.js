@@ -8,7 +8,7 @@ const MovieDetail = () => {
     const { imdbID } = useParams()
     const dispatch = useDispatch();
     const data = useSelector(getMoviesDetail)
-    console.log(data)
+    // console.log(data)
     useEffect(() => {
         dispatch(fetchMoviesDetailsAsync(imdbID));
         return () => {
