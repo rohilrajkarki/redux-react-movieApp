@@ -17,7 +17,8 @@ export const fetchMoviesAsync = createAsyncThunk(
         // console.log("getting page", page)
         // console.log("searchMovie", searchText)
         return await axios.get(`?apikey=${APIKEY}&s=${searchText}&type=movie&page=${page}`)
-            .then(res => res.data)
+            .then(res => res.data) 
+        //return response.data
     })
 
 
